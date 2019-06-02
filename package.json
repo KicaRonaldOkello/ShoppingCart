@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "nodemon ./bin/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -19,7 +19,28 @@
     "sequelize": "^5.8.7"
   },
   "devDependencies": {
+    "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "sequelize-cli": "^5.4.0"
+  },
+    "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js",
+      "!**/__tests__/**/*.js?(x)"
+    ],
+      "testMatch": [
+      "<rootDir>/src/**/__tests__/**/?(*.)(spec|test)js",
+      "<rootDir>/src/**/?(*.)(spec|test).js",
+      "<rootDir>/integrations/**/?(*.)(spec|test).js"
+      ],
+      "coveragePathIgnorePatterns": [
+      "<rootDir>/src/database/migrations",
+      "<rootDir>/src/database/seeders",
+      "<rootDir>/src/database/models/index.js",
+      "<rootDir>/src/middlewares/index.js"
+    ],
+    "testEnvironment": "node"
   }
 }
