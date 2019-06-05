@@ -8,8 +8,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
+      firstName: {
+        allowNull: false,
         type: Sequelize.STRING
+      },
+      lastName: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      imageUrl: {
+        type: Sequelize.STRING
+      },
+      email: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      role: {
+        allowNull: false,
+        type: Sequelize.ENUM('seller', 'buyer', 'admin')
       },
       createdAt: {
         allowNull: false,
