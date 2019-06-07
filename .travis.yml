@@ -5,8 +5,5 @@ node_js:
 install:
   - yarn install
 
-cache:
-  yarn: true
-
 script:
   - yarn test

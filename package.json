@@ -6,36 +6,51 @@
   "author": "KicaRonaldOkello <okello.ronald@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start:dev": "nodemon ./bin/index.js",
-    "test": "jest"
+    "build": "yarn run clean && yarn run build-server",
+    "start:dev": "NODE_ENV=development  DEBUG=log nodemon --exec babel-node ./bin/index.js",
+    "lint": "node_modules/.bin/eslint ./src",
+    "test": "jest --detectOpenHandles --runInBand --forceExit"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
+    "express-session": "^1.16.1",
+    "googleapis": "^40.0.0",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "pg": "^7.11.0",
     "pg-hstore": "^2.3.2",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
     "sequelize": "^5.8.7"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.6",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "sequelize-cli": "^5.4.0"
   },
-    "jest": {
+  "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/index.js",
       "!**/__tests__/**/*.js?(x)"
     ],
-      "testMatch": [
+    "testMatch": [
       "<rootDir>/src/**/__tests__/**/?(*.)(spec|test)js",
       "<rootDir>/src/**/?(*.)(spec|test).js",
       "<rootDir>/integrations/**/?(*.)(spec|test).js"
-      ],
-      "coveragePathIgnorePatterns": [
+    ],
+    "coveragePathIgnorePatterns": [
       "<rootDir>/src/database/migrations",
       "<rootDir>/src/database/seeders",
       "<rootDir>/src/database/models/index.js",
