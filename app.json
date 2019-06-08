@@ -1,0 +1,25 @@
+{
+  "name": "ShoppingCart",
+  "scripts": {},
+  "env": {
+    "NODE_ENV": {
+      "required": true
+    },
+    "PORT": {
+      "required": true
+    },
+    "SHOPPING_CART_SECRET": {
+      "required": true
+    }
+  },
+  "formation": {},
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "stack": "heroku-18"
+}
