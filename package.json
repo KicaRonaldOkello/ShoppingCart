@@ -50,7 +50,8 @@
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/index.js",
-      "!**/__tests__/**/*.js?(x)"
+      "!**/__tests__/**/*.js?(x)",
+      "!src/modules/**/index.js"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/?(*.)(spec|test)js",

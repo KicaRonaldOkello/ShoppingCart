@@ -14,14 +14,25 @@ class ItemService {
   }
 
   static async getSellerItems(sellerId, page = 1, size = 10) {
-    const totalItems = await Item.count({
-      where: { sellerId }
-    });
-    const items = await Item.findAll({
-      where: { sellerId },
-      offset: (page * size) - size,
-      limit: size
-    });
+    let totalItems;
+    let items;
+    if (!sellerId) {
+      totalItems = await Item.count();
+      items = await Item.findAll({
+        offset: (page * size) - size,
+        limit: size
+      });
+    } else {
+      totalItems = await Item.count({
+        where: { sellerId }
+      });
+      items = await Item.findAll({
+        where: { sellerId },
+        offset: (page * size) - size,
+        limit: size
+      });
+    }
+    
     const itemWithImages = items.map(async (item) => {
       const images = await Image.findAll({
         where: {
@@ -38,6 +49,24 @@ class ItemService {
       totalPages: Math.ceil(totalItems / size) || 1
     };
     return { result, pageData };
+  }
+
+  static async getOneItem(id, page, size) {
+    const items = await Item.findAll({
+      where: { id },
+      offset: (page * size) - size,
+      limit: size
+    });
+    const itemWithImages = items.map(async (item) => {
+      const images = await Image.findAll({
+        where: {
+          itemId: item.dataValues.id
+        }
+      });
+      return { item, images };
+    });
+    const result = await Promise.all(itemWithImages);
+    return result;
   }
 }
 export default ItemService;
