@@ -18,6 +18,6 @@ const database = {
   production: {
     ...defaultConfig,
   }
-}
+};
 
 module.exports = database;

@@ -5,18 +5,23 @@
   "repository": "https://github.com/KicaRonaldOkello/ShoppingCart.git",
   "author": "KicaRonaldOkello <okello.ronald@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "10.14.2",
+    "yarn": "1.13.0"
+  },
   "scripts": {
-    "build": "yarn run clean && yarn run build-server",
     "start:dev": "NODE_ENV=development  DEBUG=log nodemon --exec babel-node ./bin/index.js",
     "lint": "node_modules/.bin/eslint ./src",
-    "test": "jest --detectOpenHandles --runInBand --forceExit"
+    "test": "jest --detectOpenHandles --runInBand --forceExit --collect-coverage"
   },
   "dependencies": {
+    "@hapi/joi": "^15.0.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.16.1",
+    "global": "^4.4.0",
     "googleapis": "^40.0.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
@@ -27,9 +32,11 @@
     "sequelize": "^5.8.7"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
     "babel-eslint": "^8.2.6",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "eslint": "^5.8.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -54,7 +61,7 @@
       "<rootDir>/src/database/migrations",
       "<rootDir>/src/database/seeders",
       "<rootDir>/src/database/models/index.js",
-      "<rootDir>/src/middlewares/index.js"
+      "<rootDir>/src/modules/index.js"
     ],
     "testEnvironment": "node"
   }
