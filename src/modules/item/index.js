@@ -6,19 +6,23 @@ import ItemValidator from '../../middlewares/ItemValidator';
 
 const itemRouter = express.Router();
 
-itemRouter.use(
-  GeneralValidator.verifyToken,
-  GeneralValidator.verifySeller,
-);
-
 itemRouter.post(
   '/item/add',
+  GeneralValidator.verifyToken,
+  GeneralValidator.verifySeller,
   ItemValidator.validateRequestBody,
   ItemController.createItem
 );
 
 itemRouter.get(
-  '/item',
+  '/items',
+  GeneralValidator.verifyToken,
+  GeneralValidator.verifySeller,
   ItemController.getAllSellerItems
+);
+
+itemRouter.get(
+  '/item',
+  ItemController.getOneItem
 );
 export default itemRouter;

@@ -80,4 +80,45 @@ describe('ItemService', () => {
       expect(result.pageData.totalPages).toEqual(2);
     });
   });
+  describe('ItemService.getOneItem', () => {
+    it('should return ony one item', async () => {
+      jest.spyOn(Item, 'findAll').mockResolvedValue([{
+        dataValues: {
+          id: 1,
+          name: 'Gucci bag',
+          description: 'Hand made bags from Italy',
+          price: 20000 - 30000,
+        }
+      }]);
+      jest.spyOn(Image, 'findAll').mockResolvedValue([{
+        id: 2,
+        url: 'www.cloudinary.com',
+        itemId: 8,
+        createdAt: '2019-06-08T06:06:22.562Z',
+        updatedAt: '2019-06-08T06:06:22.562Z'
+      }]);
+      const result = await ItemService.getOneItem(1, 1, 10);
+      expect(Image.findAll).toBeCalled();
+      expect(Item.findAll).toBeCalled();
+      expect(result).toEqual(
+        [{
+          images: [{
+            createdAt: '2019-06-08T06:06:22.562Z',
+            id: 2,
+            itemId: 8,
+            updatedAt: '2019-06-08T06:06:22.562Z',
+            url: 'www.cloudinary.com'
+          }],
+          item: {
+            dataValues: {
+              description: 'Hand made bags from Italy',
+              id: 1,
+              name: 'Gucci bag',
+              price: -10000
+            }
+          }
+        }]
+      );
+    });
+  });
 });

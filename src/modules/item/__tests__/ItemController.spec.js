@@ -35,10 +35,6 @@ describe('ItemController', () => {
     });
   });
   describe('ItemController.getAllSellerItems', () => {
-    afterAll(() => {
-      jest.restoreAllMocks();
-      jest.resetAllMocks();
-    });
     it('should get all items for a seller', async () => {
       const req = {
         query: {
@@ -51,6 +47,21 @@ describe('ItemController', () => {
       };
       jest.spyOn(ItemService, 'getSellerItems').mockResolvedValue(item);
       await ItemController.getAllSellerItems(req, res);
+      expect(res.status().json).toBeCalledWith(item);
+    });
+  });
+  describe('ItemController.getOneItem', () => {
+    it('should return one item', async () => {
+      const req = {
+        query: {
+          page: 2,
+          size: 12,
+          itemId: 3
+        }
+      };
+      jest.spyOn(ItemService, 'getOneItem').mockResolvedValue(item);
+      await ItemController.getOneItem(req, res);
+      expect(ItemService.getOneItem).toBeCalledTimes(1);
       expect(res.status().json).toBeCalledWith(item);
     });
   });
