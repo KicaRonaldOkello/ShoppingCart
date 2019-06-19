@@ -10,6 +10,8 @@
     "yarn": "1.13.0"
   },
   "scripts": {
+    "addColumn": "node_modules/.bin/sequelize migration:create --name",
+    "migrate": "node_modules/.bin/sequelize db:migrate",
     "start:dev": "NODE_ENV=development  DEBUG=log nodemon --exec babel-node ./bin/index.js",
     "lint": "node_modules/.bin/eslint ./src",
     "test": "jest --detectOpenHandles --runInBand --forceExit --collect-coverage"
