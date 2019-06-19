@@ -35,4 +35,42 @@ export const response = {
     }))
     .mockReturnValue({ json: jest.fn() })
 };
+
+export const oneItem = [
+  {
+    item: {
+      id: 9,
+      name: 'Samsung Phones',
+      subTitle: 'Sub title',
+      description: 'Brand new LG phone straight from China',
+      price: {
+        from: 200000,
+        to: 250000
+      },
+      images: [
+        {
+          id: 4,
+          url: 'www.imgur.com',
+          itemId: 9,
+          createdAt: '2019-06-08T06:09:28.988Z',
+          updatedAt: '2019-06-08T06:09:28.988Z'
+        },
+        {
+          id: 5,
+          url: 'www.cloudinary.com',
+          itemId: 9,
+          createdAt: '2019-06-08T06:09:28.988Z',
+          updatedAt: '2019-06-08T06:09:28.988Z'
+        },
+        {
+          id: 6,
+          url: 'www.googlepics.com',
+          itemId: 9,
+          createdAt: '2019-06-08T06:09:28.988Z',
+          updatedAt: '2019-06-08T06:09:28.988Z'
+        }
+      ]
+    }
+  }
+];
 export default item;

@@ -63,7 +63,7 @@ describe('ItemService', () => {
           id: 1,
           name: 'Gucci bag',
           description: 'Hand made bags from Italy',
-          price: 20000 - 30000,
+          price: [{ value: 20000 }, { value: 30000 }],
         }
       }]);
       jest.spyOn(Image, 'findAll').mockResolvedValue([{
@@ -86,8 +86,9 @@ describe('ItemService', () => {
         dataValues: {
           id: 1,
           name: 'Gucci bag',
+          sub_title: 'Sub',
           description: 'Hand made bags from Italy',
-          price: 20000 - 30000,
+          price: [{ value: 20000 }, { value: 30000 }],
         }
       }]);
       jest.spyOn(Image, 'findAll').mockResolvedValue([{
@@ -102,21 +103,25 @@ describe('ItemService', () => {
       expect(Item.findAll).toBeCalled();
       expect(result).toEqual(
         [{
-          images: [{
-            createdAt: '2019-06-08T06:06:22.562Z',
-            id: 2,
-            itemId: 8,
-            updatedAt: '2019-06-08T06:06:22.562Z',
-            url: 'www.cloudinary.com'
-          }],
           item: {
-            dataValues: {
-              description: 'Hand made bags from Italy',
-              id: 1,
-              name: 'Gucci bag',
-              price: -10000
-            }
+
+            description: 'Hand made bags from Italy',
+            id: 1,
+            name: 'Gucci bag',
+            subTitle: 'Sub',
+            price: {
+              from: 20000,
+              to: 30000,
+            },
+            images: [{
+              createdAt: '2019-06-08T06:06:22.562Z',
+              id: 2,
+              itemId: 8,
+              updatedAt: '2019-06-08T06:06:22.562Z',
+              url: 'www.cloudinary.com'
+            }]
           }
+
         }]
       );
     });
