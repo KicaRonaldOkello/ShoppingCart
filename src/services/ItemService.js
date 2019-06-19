@@ -1,4 +1,5 @@
 import models from '../database/models';
+import RemoveDataValues from '../utils/removeDataValues';
 
 const { Item, Image } = models;
 
@@ -20,7 +21,8 @@ class ItemService {
       totalItems = await Item.count();
       items = await Item.findAll({
         offset: (page * size) - size,
-        limit: size
+        limit: size,
+        attributes: ['id', 'name', 'sub_title', 'price']
       });
     } else {
       totalItems = await Item.count({
@@ -29,17 +31,28 @@ class ItemService {
       items = await Item.findAll({
         where: { sellerId },
         offset: (page * size) - size,
-        limit: size
+        limit: size,
+        attributes: ['id', 'name', 'sub_title', 'price']
       });
     }
-    
-    const itemWithImages = items.map(async (item) => {
+    const strippedItems = RemoveDataValues.removeDataValues(items);
+    const itemWithImages = strippedItems.map(async (item) => {
       const images = await Image.findAll({
         where: {
-          itemId: item.dataValues.id
-        }
+          itemId: item.id
+        },
+        attributes: ['url']
       });
-      return { item, images };
+
+      return {
+        item: {
+          id: item.id,
+          name: item.name,
+          sub_title: item.sub_title,
+          price: { from: item.price[0].value, to: item.price[1].value },
+          image: images[0].url
+        }
+      };
     });
     const result = await Promise.all(itemWithImages);
     const pageData = {
@@ -51,19 +64,28 @@ class ItemService {
     return { result, pageData };
   }
 
-  static async getOneItem(id, page, size) {
-    const items = await Item.findAll({
-      where: { id },
-      offset: (page * size) - size,
-      limit: size
-    });
-    const itemWithImages = items.map(async (item) => {
+  static async getOneItem(id) {
+    const items = await Item.findAll({ where: { id } });
+    const strippedItems = RemoveDataValues.removeDataValues(items);
+    const itemWithImages = strippedItems.map(async (item) => {
       const images = await Image.findAll({
         where: {
-          itemId: item.dataValues.id
+          itemId: item.id
         }
       });
-      return { item, images };
+      const {
+        id: _id, name, sub_title: subTitle, description, price
+      } = item;
+      return {
+        item: {
+          id: _id,
+          name,
+          subTitle,
+          description,
+          price: { from: price[0].value, to: price[1].value },
+          images
+        }
+      };
     });
     const result = await Promise.all(itemWithImages);
     return result;

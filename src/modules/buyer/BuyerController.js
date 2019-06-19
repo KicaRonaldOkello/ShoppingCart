@@ -14,5 +14,17 @@ class BuyerController {
       return res.status(400).json(error.message);
     }
   }
+
+  static async getOneItem(req, res) {
+    try {
+      const { id } = req.params;
+
+      const item = await ItemService.getOneItem(id);
+
+      return res.status(200).json(item);
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  }
 }
 export default BuyerController;
