@@ -3,6 +3,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Item = sequelize.define('Item', {
     name: DataTypes.STRING,
+    sub_title: DataTypes.STRING,
     description: DataTypes.TEXT,
     sellerId: DataTypes.INTEGER,
     price: DataTypes.RANGE(sequelize.INTEGER)

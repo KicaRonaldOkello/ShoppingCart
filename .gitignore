@@ -6,3 +6,5 @@ yarn.lock
 coverage
 
 yarn-error.log
+
+.vscode
