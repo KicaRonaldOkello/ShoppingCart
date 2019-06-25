@@ -22,9 +22,20 @@ class AuthenticationController {
         role
       };
       const user = await UserService.findOrCreateUser(userInfo);
-      const userData = user[0].dataValues;
+      const { isNewUser } = user;
+      const userData = user[0];
       const jwtToken = await Token.generateToken(userData, '240m');
-      return res.status(200).json({ ...userData, jwtToken });
+      return res.status(200).json({ ...userData, isNewUser, jwtToken });
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  static async updateRole(req, res) {
+    try {
+      const { currentUser: { id } } = req;
+      const user = await UserService.updateUser({ ...req.body }, id);
+      return res.status(200).json({ ...user });
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }

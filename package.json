@@ -14,11 +14,13 @@
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "start:dev": "NODE_ENV=development  DEBUG=log nodemon --exec babel-node ./bin/index.js",
     "lint": "node_modules/.bin/eslint ./src",
-    "test": "jest --detectOpenHandles --runInBand --forceExit --collect-coverage"
+    "test": "jest --detectOpenHandles --runInBand --forceExit --collect-coverage",
+    "heroku": "yarn migrate && yarn start:dev"
   },
   "dependencies": {
     "@hapi/joi": "^15.0.3",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",

@@ -45,13 +45,11 @@ class ItemService {
       });
 
       return {
-        item: {
-          id: item.id,
-          name: item.name,
-          sub_title: item.sub_title,
-          price: { from: item.price[0].value, to: item.price[1].value },
-          image: images[0].url
-        }
+        id: item.id,
+        name: item.name,
+        sub_title: item.sub_title,
+        price: { from: item.price[0].value, to: item.price[1].value },
+        image: images[0].url
       };
     });
     const result = await Promise.all(itemWithImages);
