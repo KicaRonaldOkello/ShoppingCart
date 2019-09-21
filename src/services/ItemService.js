@@ -10,8 +10,8 @@ class ItemService {
       url: image, itemId: item.dataValues.id
     }));
     const imageResult = await Image.bulkCreate(strippedImages);
-    item.images = imageResult;
-    return { item, imageResult };
+    const createdItem = RemoveDataValues.removeDataValues(item);
+    return { createdItem, imageResult };
   }
 
   static async getSellerItems(sellerId, page = 1, size = 10) {
