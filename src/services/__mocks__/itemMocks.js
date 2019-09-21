@@ -25,3 +25,12 @@ export const resultImages = [
     updatedAt: '2019-06-08T07:34:57.793Z'
   }
 ];
+
+export const userMock = {
+  id: 1,
+  email: 'okello@gmail.com',
+  firstName: 'Okello',
+  lastName: 'Ronald',
+  imageUrl: 'www.imgur.com',
+  role: 'seller'
+};

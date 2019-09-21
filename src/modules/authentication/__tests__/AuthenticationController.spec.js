@@ -4,23 +4,27 @@ import Token from '../../../utils/jwt-token';
 import AuthenticationController from '../AuthenticationController';
 
 describe('AuthenticationController', () => {
+  let res;
+  let req;
+  beforeEach(() => {
+    res = {
+      status: jest.fn(() => ({
+        json: jest.fn(() => { })
+      })).mockReturnValue({ json: jest.fn() })
+    };
+  });
   describe('AuthenticationController.loginUser', () => {
-    let res;
-    let req;
-    beforeEach(() => {
-      res = {
-        status: jest.fn(() => ({
-          json: jest.fn(() => { })
-        })).mockReturnValue({ json: jest.fn() })
-      };
+    afterEach(() => {
+      jest.resetAllMocks();
+      jest.restoreAllMocks();
+    });
+    it('should login a user and return the user info and token', async () => {
       req = {
         body: {
           token: 'qwedcvfd',
           role: 'seller'
         }
       };
-    });
-    it('should login a user and return the user info and token', async () => {
       jest.spyOn(UserService, 'findOrCreateUser').mockResolvedValue(
         [{
           dataValues: {
@@ -51,6 +55,20 @@ describe('AuthenticationController', () => {
       expect(request).toBeCalledWith(options);
       expect(UserService.findOrCreateUser).toBeCalled();
       expect(Token.generateToken).toBeCalled();
+    });
+  });
+  describe('AuthenticationController.updateRole', () => {
+    it('should update a user role', async () => {
+      req = { currentUser: { id: 5 } };
+      jest.spyOn(UserService, 'updateUser').mockResolvedValue({
+        email: 'okello@gmail.com',
+        firstName: 'Okello',
+        lastName: 'Ronald',
+        imageUrl: 'www.imgur.com',
+        role: 'seller'
+      });
+      await AuthenticationController.updateRole(req, res);
+      expect(res.status).toHaveBeenCalledWith(200);
     });
   });
 });
