@@ -7,6 +7,7 @@ class ItemValidator {
       description: joi.string().trim().required(),
       sellerId: joi.number().integer().required(),
       price: joi.string().required(),
+      sub_title: joi.string().required(),
       images: joi.array().items(joi.string().required())
     });
     joi.validate(req.body.item, schema, (err) => {
