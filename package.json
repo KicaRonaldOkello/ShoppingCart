@@ -23,7 +23,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.16.1",
     "global": "^4.4.0",
     "googleapis": "^40.0.0",
